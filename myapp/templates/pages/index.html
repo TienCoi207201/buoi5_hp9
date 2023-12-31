@@ -1,0 +1,13 @@
+{% extends "pages/base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<h1>Xin Chào Hoàng Tùng</h1>
+<h2>Chào mừng đến với Django</h2>
+    {% for comment in comments %}
+        <li><strong>{{ comment.author }}</strong>: {{ comment.content }}</li>
+    {% endfor %}
+{% endblock %}
