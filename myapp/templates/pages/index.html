@@ -1,13 +1,17 @@
 {% extends "pages/base.html" %}
 
 {% block title %}
-Home
+Trang chủ
 {% endblock %}
 
 {% block content %}
 <h1>Xin Chào Hoàng Tùng</h1>
 <h2>Chào mừng đến với Django</h2>
-    {% for comment in comments %}
-        <li><strong>{{ comment.author }}</strong>: {{ comment.content }}</li>
-    {% endfor %}
+{% for product in products %}
+    <p>{{ product.name }}</p>
+    <p>{{ product.description }}</p>
+    <img src="{{ product.image.url }}"/>
+    <p>{{ product.price }}</p>
+{% endfor %}
+
 {% endblock %}
