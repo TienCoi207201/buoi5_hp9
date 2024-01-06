@@ -15,3 +15,17 @@ class Product(models.Model):
         return self.description
     def getPrice(self):
         return self.price
+
+class Post(models.Model):
+    title = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+    image = models.ImageField(upload_to='post_image', null=True, blank=True)
+    def getTitle(self):
+        return self.title
+    def getDate(self):
+        return self.date
+    def getContent(self):
+        return self.content
+    def getDescription(self):
+        return self.description
