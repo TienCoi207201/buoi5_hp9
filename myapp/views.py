@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
-from .models import Product
+from .models import Product, Post
 
 # Create your views here.
 def demo(req):
@@ -12,8 +12,8 @@ def demo(req):
     ]
     return JsonResponse(data, safe=False)
 def home(req):
-    products = Product.objects.all()
-    return render(req, 'pages/index.html', {'products': products})
+    posts = Post.objects.all()
+    return render(req, 'pages/index.html', {'posts': posts})
 def product(req):
     data = [
         {

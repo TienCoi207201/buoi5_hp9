@@ -8,10 +8,8 @@ Home
 <h1>Xin Chào Hoàng Tùng</h1>
 <h2>Chào mừng đến với Django</h2>
 {% for product in products %}
-    {% if product.name == 'Đăng Hán' %}
         <p>{{ product.name }}</p>
         <p>{{ product.born }}</p>
-    {% endif %}
 {% endfor %}
 
 {% endblock %}
