@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 # from djangoProject.models import Product
 # Create your models here.
@@ -29,3 +30,9 @@ class Post(models.Model):
         return self.content
     def getDescription(self):
         return self.description
+
+class Comment(models.Model):
+    content = models.TextField()
+    author = User
+    img_author = models.ImageField(upload_to='post/image', null=True, blank=True)
+    create_at = models.DateTimeField(auto_now_add=True)

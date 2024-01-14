@@ -4,16 +4,18 @@ from .models import Product, Post
 
 # Create your views here.
 def demo(req):
+    image_path = 'images/couch.png';
     data = [
         {
         'name': 'Trọng Nhân',
-        'age': 20
+        'image': 20
     }
     ]
     return JsonResponse(data, safe=False)
 def home(req):
     posts = Post.objects.all()
-    return render(req, 'pages/index.html', {'posts': posts})
+    image_path = 'static/images/couch.png'
+    return render(req, 'pages/index.html', {'posts': posts, 'image_path': image_path})
 def product(req):
     data = [
         {
