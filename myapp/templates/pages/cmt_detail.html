@@ -1,0 +1,7 @@
+{% extends 'pages/base.html' %}
+{% block title %}Chi tiet comment{% endblock %}
+{% block content %}
+
+        <p>{{ comments.content }}</p>
+        <img src="{{ comments.img_author.url}}"/>
+{% endblock %}

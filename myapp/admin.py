@@ -4,6 +4,11 @@ from .models import Product, Post, Comment
 # class AdminProduct(admin.ModelAdmin):
 #     list_products = ('name', 'description', 'price')
 
-admin.site.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'price', 'origin', 'trademark')
+    # search_fields = ('name', 'description')
+
+
+admin.site.register(Product, ProductAdmin)
 admin.site.register(Post)
 admin.site.register(Comment)

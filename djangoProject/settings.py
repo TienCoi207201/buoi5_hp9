@@ -82,6 +82,7 @@ TEMPLATES = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5500",  # Thay đổi thành origin của bạn
     "http://127.0.0.1:5500",  # Thay đổi thành origin của bạn
+    "http://localhost:3000"
 ]
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
@@ -91,10 +92,18 @@ WSGI_APPLICATION = 'djangoProject.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'tiencoi',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': '3306'
+    # },
+'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
 }
 
 
