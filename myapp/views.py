@@ -15,8 +15,21 @@ def demo(req):
     return JsonResponse(data, safe=False)
 def home(req):
     posts = Post.objects.all()
+    # comments = Comment.objects.all()
+    comment = [
+        {
+            'id': 1,
+            'name': 'comment 1',
+            'image': 'https://soundpeatsvietnam.com/wp-content/uploads/2023/05/gofree.jpg'
+        },
+        {
+            'id': 2,
+            'name': 'comment 2',
+            'image': 'https://cdn.tgdd.vn/Products/Images/54/310763/tai-nghe-bluetooth-true-wireless-ava-freego-a20-thumb-2-600x600.jpg'
+        }
+    ]
     image_path = 'static/images/couch.png'
-    return render(req, 'pages/index.html', {'posts': posts, 'image_path': image_path})
+    return render(req, 'pages/index.html', {'posts': posts, 'image_path': image_path, 'comments': comment})
 def product(req):
     products = Product.objects.all()
     return render(req, 'pages/product.html', context={'products': products})
@@ -25,6 +38,7 @@ def show(req):
     #kiểu list: []
     data = [
         {
+            'id': 1,
             'name': 'Đăng Hán',
             'born': '2003'
         },
@@ -42,8 +56,20 @@ def showcomments(req):
     # return JsonResponse(cmt_json, json_dumps_params={'ensure_ascii': False}, safe=False)
     return render(req, 'pages/index.html', context={'comments': cmt})
 def cmt_details(req, pk):
-    cmt_details = get_object_or_404(Comment, pk=pk)
-    return render(req, 'pages/cmt_detail.html', context={'comments': cmt_details})
+    comment = [
+        {
+            'id': 1,
+            'name': 'comment 1',
+            'image': 'https://soundpeatsvietnam.com/wp-content/uploads/2023/05/gofree.jpg'
+        },
+        {
+            'id': 2,
+            'name': 'comment 2',
+            'image': 'https://cdn.tgdd.vn/Products/Images/54/310763/tai-nghe-bluetooth-true-wireless-ava-freego-a20-thumb-2-600x600.jpg'
+        }
+    ]
+    # cmt_details = get_object_or_404(comment, pk=pk)
+    return render(req, 'pages/cmt_detail.html', context={'comments': comment})
 def err_404_not_found(req, exception = None):
     return render(req, 'pages/404.html', status=404)
 def contact(req):

@@ -380,7 +380,8 @@
 			</div>
         <div>
             {% for comment in comments %}
-                    <a href="{% url 'comment-detail' comment.id }}
+                    <a href={% url 'home:comment-detail' comment.id %}>{{ comment.name }}</a>
+                    <img src={{ comment.image }} />
             {% endfor %}
         </div>
 		</div>
