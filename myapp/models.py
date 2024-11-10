@@ -3,12 +3,17 @@ from django.db import models
 # from djangoProject.models import Product
 # Create your models here.
 
+#makemigrations: đây là câu lệnh để lưu những thay đổi trong cơ sở dữ liệu
+#migrate: đây là câu lệnh để áp dụng những thay đổi đó vòa trong cơ sở dữ liệu
+
 class Product(models.Model):
+    #id sẽ tự động được tạo, và tự đông set là primary key, primary key được dùng để tạo ra các mối quan hệ giữa các bảng, foreign key
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='product', null=True, blank=True)
     description = models.TextField(max_length=1000, null=True)
     origin = models.CharField(max_length=100, default='')
     trademark = models.CharField(max_length=100, default='')
+    quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=0)
     def getName(self):
         return self.name

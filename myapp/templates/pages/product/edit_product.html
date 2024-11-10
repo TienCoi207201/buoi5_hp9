@@ -1,0 +1,34 @@
+{% extends "base.html" %} 
+{% block content %}
+    {% if product %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{staff.name}}">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Tuổi</label>
+            <input type="text" class="form-control" id="age" name="age" value="{{staff.age}}">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Giới tính</label>
+            <input type="text" class="form-control" id="gender" name="gender" value="{{staff.gender}}">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Birthday</label>
+            <input type="date" class="form-control" id="birthday" name="birthday" value="{{staff.birthday}}">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Ảnh</label>
+            <img src="{{staff.image.url}}" />
+            <input type="file" class="form-control" id="image" name="image" value="{{staff.image}}">
+        </div>
+        <div class="mb-3">
+            <label for="age" class="form-label">Tuổi</label>
+            <input type="text" class="form-control" id="address" name="address" value="{{staff.address}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    {% endif %}
+{% endblock %}

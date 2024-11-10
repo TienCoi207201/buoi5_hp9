@@ -1,0 +1,12 @@
+{% extends "pages/base.html" %}
+
+{% block content %}
+    {% for product in data %}
+        <p>{{product.name}}</p>
+        <p>{{product.decription}}</p>
+        <img src = {{ product.image.url }}/>
+        <p>{{product.tradmark}}</p>
+        <p>{{product.name}}</p>
+        <p>{{product.price}}</p>
+    {% endfor %}
+{% endblock %}

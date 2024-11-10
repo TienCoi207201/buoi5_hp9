@@ -8,14 +8,6 @@
 {% extends 'pages/base.html' %}
 {% load static %}
     {% block content %}
-
-	{% if message %}
-		{% for message in messages  %}
-			<div class="alert alert-primary" role="alert">
-				{{ message }}
-			</div>
-		{% endfor %}
-	{% endif %}
 		<!-- Start Hero Section -->
 			<div class="hero">
 				<div class="container">
@@ -388,8 +380,8 @@
 			</div>
         <div>
             {% for comment in comments %}
-                    <a href={% url 'home:comment-detail' comment.id %}>{{ comment.name }}</a>
-                    <img src={{ comment.image }} />
+                    <a href={% url 'home:comment-detail' comment.id %}>{{ comment.content }}</a>
+                    <img src={{ comment.img_author }} />
             {% endfor %}
         </div>
 		</div>

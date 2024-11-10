@@ -1,0 +1,14 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <input name="username" type="text" class="form-control" id="exampleInputEmail1" placeholder="Tài khoản">
+        </div>
+        <div class="mb-3"> 
+            <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Mật khẩu">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

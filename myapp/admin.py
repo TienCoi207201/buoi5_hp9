@@ -4,11 +4,10 @@ from .models import Product, Post, Comment
 # class AdminProduct(admin.ModelAdmin):
 #     list_products = ('name', 'description', 'price')
 
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'price', 'origin', 'trademark')
+# class ProductAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'description', 'price', 'origin', 'trademark')
     # search_fields = ('name', 'description')
 
-
-admin.site.register(Product, ProductAdmin)
+admin.site.register(Product)
 admin.site.register(Post)
 admin.site.register(Comment)
