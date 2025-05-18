@@ -21,5 +21,7 @@ urlpatterns = [
     path('product/delete/<int:pk>', views.deleteProduct, name = 'delete_product'),
     path('', views.showData, name = 'show'),
     path('showdata', views.showData, name = 'show'),
+    path('product-return', views.produduct_req, name = 'product_req'),
+    path('filter-product', views.filterProduct, name = 'filter_product'),
     re_path(r'^.*$', views.err_404_not_found),
 ]

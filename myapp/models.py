@@ -15,6 +15,7 @@ class Product(models.Model):
     trademark = models.CharField(max_length=100, default='')
     quantity = models.IntegerField(default=0)
     price = models.DecimalField(max_digits=10, decimal_places=0)
+    discount = models.DecimalField(default = 0,max_digits=10, decimal_places=0)
     def getName(self):
         return self.name
     def getImage(self):

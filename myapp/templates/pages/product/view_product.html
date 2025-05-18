@@ -1,15 +1,16 @@
-{% extends "base.html" %} 
+{% extends "pages/base.html" %}
 {% block content %}
+
     <table class="table">
     <thead>
         <tr>
         <th scope="col">STT</th>
         <th scope="col">Tên</th>
-        <th scope="col">Tuổi</th>
-        <th scope="col">Giới tính</th>
-        <th scope="col">Ngày sinh</th>
         <th scope="col">Ảnh</th>
-        <th scope="col">Địa chỉ</th>
+        <th scope="col">Mô tả</th>
+        <th scope="col">Nguồn gốc</th>
+        <th scope="col">Thương hiệu</th>
+        <th scope="col">Số lượng</th>
         <th scope="col">Action</th>
         </tr>
     </thead>
@@ -18,12 +19,12 @@
             <tr>
                 <th scope="row">{{forloop.counter}}</th>
                 <td>{{item.name}}</td>
-                <td>{{item.age}}</td>
-                <td>{{item.gender}}</td>
-                <td>{{item.birthday}}</td>
                 <td><img style="width: 50px; height:50px" src={{item.image.url}} alt="Ảnh"/></td>
-                <td>{{item.address}}</td>
-                <td><a href={% url "editstaff" item.id %}><i class="bi bi-pen-fill"></i></a></td>
+                <td>{{item.description}}</td>
+                <td>{{item.origin}}</td>
+                <td>{{item.trademark}}</td>
+                <td>{{item.quantity}}</td>
+                <td><a href={% url "edit_product" item.id %}><i class="bi bi-pen-fill"></i></a></td>
                 <td><a><i class="bi bi-trash3-fill"></i></a></td>
             </tr>
         {% endfor %}

@@ -6,6 +6,7 @@ from .models import Product, Post, Comment
 from django.core.serializers import  serialize
 from django.views.generic import ListView, DetailView
 from .form import RegisterForm, ProductForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 #Syntax class view
@@ -13,6 +14,18 @@ from .form import RegisterForm, ProductForm
 #    model = tên_model
 #    template_name = 'tên_template'
 #    context_object_name = 'tên_context'
+comment = [
+        {
+            'id': 1,
+            'name': 'comment 1',
+            'image': 'https://soundpeatsvietnam.com/wp-content/uploads/2023/05/gofree.jpg'
+        },
+        {
+            'id': 2,
+            'name': 'comment 2',
+            'image': 'https://cdn.tgdd.vn/Products/Images/54/310763/tai-nghe-bluetooth-true-wireless-ava-freego-a20-thumb-2-600x600.jpg'
+        }
+    ]
 def showData(req):
     products = Product.objects.all()
     return render(req, 'pages/demo.html', context= { 'data': products })
@@ -35,6 +48,7 @@ class ProductListView(ListView):
 
 #return JsonResponse(data,json_dumps_params={'ensure_ascii': False}, safe=False)
 
+    
 class CommentListView(ListView):
     model = Comment
     # cmt_json = serialize('json', cmt)
@@ -42,18 +56,6 @@ class CommentListView(ListView):
     # return JsonResponse(cmt_json, json_dumps_params={'ensure_ascii': False}, safe=False)
     context_object_name = 'comments'
 def cmt_details(req, pk):
-    comment = [
-        {
-            'id': 1,
-            'name': 'comment 1',
-            'image': 'https://soundpeatsvietnam.com/wp-content/uploads/2023/05/gofree.jpg'
-        },
-        {
-            'id': 2,
-            'name': 'comment 2',
-            'image': 'https://cdn.tgdd.vn/Products/Images/54/310763/tai-nghe-bluetooth-true-wireless-ava-freego-a20-thumb-2-600x600.jpg'
-        }
-    ]
     # cmt_details = get_object_or_404(comment, pk=pk)
     return render(req, 'pages/cmt_detail.html', context={'comments': comment})
 def err_404_not_found(req, exception = None):
@@ -65,8 +67,8 @@ def cart(req):
 
 def login_user(req):
     if req.method == "POST":
-        username = req.POST['username']
-        password = req.POST['password']
+        username = req.POST.get('username')
+        password = req.POST.get('password')
         user = authenticate(req, username = username, password = password)
         if user is not None:
             login(req, user)
@@ -78,23 +80,41 @@ def login_user(req):
     else:
         return render(req, 'pages/login.html')
 
-def signup_user(req):
-    form = RegisterForm(req.POST or None) 
-    if req.method == "POST":
+# def signup_user(req):
+#     if req.method == "POST":
+#         form = RegisterForm(req.POST or None) 
+#         if form.is_valid():
+#             user = form.save()
+#             login(req, user) 
+#             print("User save:", user.username)
+#             return redirect("home:home")  
+#     else:
+#         form = RegisterForm()
+#     return render(req, "pages/signup.html", { "form": form })
+def signup_user(request):
+    print("Request method:", request.method)
+    if request.method == 'POST':
+        print("Form data:", request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(req, user) 
-        return redirect("home:home")  
-    return render(req, "pages/signup.html", { "form": form })
+            login(request, user)
+            messages.success(request, 'Đăng ký thành công!')
+            return redirect('home:home')
+        else:
+            print("Form errors:", form.errors)
+            messages.error(request, 'Có lỗi trong form, vui lòng kiểm tra lại.')
+    else:
+        form = RegisterForm()
+    return render(request, 'pages/signup.html', {'form': form})
 
 def logout_user(req):
     logout(req)
-    messages.success(req, "Logout success!")
     return redirect("home:home")
 
 def viewProduct(req):
     products = Product.objects.all()
-    return render(req, "view_product.html", context = { 'products': products })
+    return render(req, "pages/product/view_product.html", context = { 'products': products })
 
 def editProduct(req, pk):
     product = get_object_or_404(Product, id = pk)
@@ -106,7 +126,7 @@ def editProduct(req, pk):
         else:
             form = ProductForm(instance=product)
 
-    return render(req, "edit_staff.html", context= { 'form': form, 'product': product })
+    return render(req, "pages/product/edit_product.html", context= { 'form': form, 'product': product })
 
 def deleteProduct(req, pk):
     product = get_object_or_404(Product, id = pk)
@@ -121,4 +141,15 @@ def addProduct(req):
             return redirect("view_product")
         else:
             form = ProductForm()
-    return render(req, "add_product.html", context = { 'form': form })
+    return render(req, "pages/product/add_product.html", context = { 'form': form })
+
+def produduct_req(req):
+    product = Product.objects.all()
+    #convert to json
+    product_convert = serialize('json', product)
+    return JsonResponse(product_convert, safe=False, json_dumps_params={'ensure_ascii': False})
+
+def filterProduct(req):
+    product = Product.objects.filter(price__gt = 10000)
+    product_convert = serialize('json', product)
+    return JsonResponse(product_convert, safe=False, json_dumps_params={'ensure_ascii': False})
